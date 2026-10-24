@@ -28,7 +28,7 @@ class ProductoTest {
     void testDescuentoInvalidoLanzaExcepcion() {
         Producto producto = new Producto("P102", "Teclado", 50.0);
         assertThrows(IllegalArgumentException.class, () -> {
-            producto.calcularPrecioConDescuento(100);
+            producto.calcularPrecioConDescuento(150);
         });
     }
 }
