@@ -5,7 +5,7 @@ pipeline {
         // Mantiene solo los últimos 10 builds para optimizar espacio
         buildDiscarder(logRotator(numToKeepStr: '10'))
         timeout(time: 15, unit: 'MINUTES')
-        ansiColor('xterm')
+        timestamps()
     }
 
     triggers {
