@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  jenkins:
+    build:
+      context: ./jenkins-docker
+      dockerfile: Dockerfile
+    container_name: jenkins-ci-local
+    restart: unless-stopped
+    ports:
+      - "8080:8080"   # Acceso web a Jenkins
+      - "50000:50000" # Puerto de comunicación para agentes JNLP
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=true
+      - TZ=America/Bogota
+    volumes:
+      # Persistencia de jobs, configuraciones y usuarios
+      - jenkins_data:/var/jenkins_home
+      # Socket Docker del host (opcional)
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - jenkins-net
+
+networks:
+  jenkins-net:
+    driver: bridge
+
+volumes:
+  jenkins_data:
+    name: jenkins_local_data
